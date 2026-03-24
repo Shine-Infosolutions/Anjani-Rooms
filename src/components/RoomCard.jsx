@@ -1,0 +1,138 @@
+import { useState } from "react";
+import { CONTACT } from "../data/hotels";
+import MediaModal from "./MediaModal";
+
+export default function RoomCard({ room, location, checkIn, checkOut, nights }) {
+  const [mediaIndex, setMediaIndex] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalStart, setModalStart] = useState(0);
+
+  const media = [...room.images, ...(room.video ? [room.video] : [])];
+  const isVideo = (src) => src.endsWith(".mp4") || src.endsWith(".webm");
+  const totalPrice = nights > 0 ? room.price * nights : null;
+
+  const openModal = (index) => { setModalStart(index); setModalOpen(true); };
+
+  const whatsappMsg = encodeURIComponent(
+    `Hi, I want to book the *${room.category}* in ${location}.\n` +
+    (checkIn && checkOut
+      ? `📅 Check-in: ${checkIn}\n📅 Check-out: ${checkOut}\n🌙 Nights: ${nights}\n💰 Total: ₹${totalPrice}`
+      : `Price: ₹${room.price}/night`)
+  );
+
+  return (
+    <>
+      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row overflow-hidden">
+
+        {/* ── Image ── */}
+        <div
+          className="relative w-full md:w-72 h-52 md:h-auto flex-shrink-0 cursor-pointer group"
+          onClick={() => openModal(mediaIndex)}
+        >
+          {isVideo(media[mediaIndex]) ? (
+            <video src={media[mediaIndex]} className="w-full h-full object-cover" muted />
+          ) : (
+            <img src={media[mediaIndex]} alt={room.category} className="w-full h-full object-cover" />
+          )}
+
+          {/* Hover overlay */}
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all flex items-center justify-center">
+            <span className="text-white text-sm font-bold bg-black/60 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">
+              View All Photos
+            </span>
+          </div>
+
+          {/* Prev / Next */}
+          {media.length > 1 && (
+            <div
+              className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/55 rounded-full px-3 py-1"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setMediaIndex((i) => (i - 1 + media.length) % media.length)}
+                className="text-white text-lg leading-none px-1"
+              >‹</button>
+              <span className="text-white text-xs">{mediaIndex + 1}/{media.length}</span>
+              <button
+                onClick={() => setMediaIndex((i) => (i + 1) % media.length)}
+                className="text-white text-lg leading-none px-1"
+              >›</button>
+            </div>
+          )}
+
+          {/* Location badge */}
+          <span className="absolute top-2 left-2 bg-black/60 text-white text-[11px] px-2.5 py-1 rounded-full backdrop-blur-sm">
+            📍 {location}
+          </span>
+
+          {/* Photo count badge */}
+          <span className="absolute top-2 right-2 bg-black/60 text-white text-[11px] px-2.5 py-1 rounded-full backdrop-blur-sm">
+            {room.video ? `🎬 ${room.images.length} Photos · 1 Video` : `🖼 ${media.length} Photo${media.length > 1 ? "s" : ""}`}
+          </span>
+        </div>
+
+        {/* ── Details ── */}
+        <div className="flex-1 flex flex-col justify-between p-4 md:p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">{room.category}</h3>
+              <div className="flex flex-wrap gap-2">
+                {room.amenities.map((a) => (
+                  <span key={a} className="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded-md font-medium">
+                    ✓ {a}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <span className="text-xs font-bold text-green-600 bg-green-50 border border-green-200 px-3 py-1.5 rounded-full whitespace-nowrap flex-shrink-0">
+              ✓ Available
+            </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mt-4 pt-4 border-t border-gray-100">
+            {/* Price */}
+            <div>
+              <div className="text-2xl font-bold text-gray-900 leading-none">
+                ₹{room.price.toLocaleString()}
+                <span className="text-sm font-normal text-gray-400 ml-1">/ night</span>
+              </div>
+              {totalPrice && (
+                <div className="text-sm text-green-600 font-semibold mt-1">
+                  ₹{totalPrice.toLocaleString()} for {nights} night{nights > 1 ? "s" : ""}
+                </div>
+              )}
+              <div className="text-xs text-gray-400 mt-0.5">+ taxes & fees</div>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-2">
+              <a
+                href={`tel:${CONTACT.phone}`}
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg border-2 border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition-all whitespace-nowrap"
+              >
+                📞 Call
+              </a>
+              <a
+                href={`https://wa.me/${CONTACT.whatsapp.replace("+", "")}?text=${whatsappMsg}`}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors whitespace-nowrap"
+              >
+                Book via WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {modalOpen && (
+        <MediaModal
+          media={media}
+          startIndex={modalStart}
+          title={`${room.category} · ${location}`}
+          onClose={() => setModalOpen(false)}
+        />
+      )}
+    </>
+  );
+}
