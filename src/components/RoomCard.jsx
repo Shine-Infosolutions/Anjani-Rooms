@@ -127,6 +127,11 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
                 ₹{room.price.toLocaleString()}
                 <span className="text-sm font-normal text-gray-400 ml-1">/ night</span>
               </div>
+              <div className="text-xs text-gray-500 mt-1">Without Breakfast</div>
+              <div className="text-sm font-semibold text-gray-700 mt-0.5">
+                ₹{room.priceWithBreakfast.toLocaleString()}
+                <span className="text-xs font-normal text-gray-400 ml-1">with Breakfast</span>
+              </div>
               {totalPrice && (
                 <div className="text-sm text-green-600 font-semibold mt-1">
                   ₹{totalPrice.toLocaleString()} for {nights} night{nights > 1 ? "s" : ""}
