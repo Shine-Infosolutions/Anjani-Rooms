@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { CONTACT } from "../data/hotels";
 import MediaModal from "./MediaModal";
 
@@ -6,8 +6,19 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
   const [mediaIndex, setMediaIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalStart, setModalStart] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const intervalRef = useRef(null);
 
   const media = [...room.images, ...(room.video ? [room.video] : [])];
+
+  useEffect(() => {
+    if (hovered || media.length <= 1) return;
+    intervalRef.current = setInterval(() => {
+      setMediaIndex((i) => (i + 1) % media.length);
+    }, 3000);
+    return () => clearInterval(intervalRef.current);
+  }, [hovered, media.length]);
+
   const isVideo = (src) => src.endsWith(".mp4") || src.endsWith(".webm");
   const totalPrice = nights > 0 ? room.price * nights : null;
 
@@ -22,41 +33,61 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
 
   return (
     <>
-      <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row overflow-hidden">
+      <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col md:flex-row overflow-hidden">
 
-        {/* ── Image ── */}
+        {/* ── Image Carousel ── */}
         <div
-          className="relative w-full md:w-72 h-52 md:h-auto flex-shrink-0 cursor-pointer group"
-          onClick={() => openModal(mediaIndex)}
+          className="relative w-full md:w-72 h-52 md:h-auto flex-shrink-0 overflow-hidden group"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
-          {isVideo(media[mediaIndex]) ? (
-            <video src={media[mediaIndex]} className="w-full h-full object-cover" muted />
-          ) : (
-            <img src={media[mediaIndex]} alt={room.category} className="w-full h-full object-cover" />
-          )}
+          {/* Sliding strip */}
+          <div
+            className="flex h-full transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${mediaIndex * 100}%)` }}
+          >
+            {media.map((src, i) => (
+              <div key={i} className="w-full h-full flex-shrink-0 cursor-pointer" onClick={() => openModal(i)}>
+                {isVideo(src) ? (
+                  <video src={src} className="w-full h-full object-cover" muted />
+                ) : (
+                  <img src={src} alt={room.category} className="w-full h-full object-cover" />
+                )}
+              </div>
+            ))}
+          </div>
 
           {/* Hover overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all flex items-center justify-center pointer-events-none">
             <span className="text-white text-sm font-bold bg-black/60 px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all">
               View All Photos
             </span>
           </div>
 
-          {/* Prev / Next */}
+          {/* Prev / Next arrows */}
           {media.length > 1 && (
-            <div
-              className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-black/55 rounded-full px-3 py-1"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <>
               <button
-                onClick={() => setMediaIndex((i) => (i - 1 + media.length) % media.length)}
-                className="text-white text-lg leading-none px-1"
+                className="absolute left-1.5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-7 h-7 rounded-full flex items-center justify-center text-lg leading-none transition-all opacity-0 group-hover:opacity-100"
+                onClick={(e) => { e.stopPropagation(); setMediaIndex((i) => (i - 1 + media.length) % media.length); }}
               >‹</button>
-              <span className="text-white text-xs">{mediaIndex + 1}/{media.length}</span>
               <button
-                onClick={() => setMediaIndex((i) => (i + 1) % media.length)}
-                className="text-white text-lg leading-none px-1"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white w-7 h-7 rounded-full flex items-center justify-center text-lg leading-none transition-all opacity-0 group-hover:opacity-100"
+                onClick={(e) => { e.stopPropagation(); setMediaIndex((i) => (i + 1) % media.length); }}
               >›</button>
+            </>
+          )}
+
+          {/* Dot indicators */}
+          {media.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" onClick={(e) => e.stopPropagation()}>
+              {media.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setMediaIndex(i)}
+                  className={`w-1.5 h-1.5 rounded-full transition-all ${i === mediaIndex ? "bg-white scale-125" : "bg-white/50"}`}
+                />
+              ))}
             </div>
           )}
 
@@ -108,7 +139,7 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
             <div className="flex gap-2">
               <a
                 href={`tel:${CONTACT.phone}`}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg border-2 border-gray-900 text-gray-900 text-sm font-semibold hover:bg-gray-900 hover:text-white transition-all whitespace-nowrap"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-white border border-gray-200 text-gray-900 text-sm font-semibold hover:bg-gray-50 transition-all whitespace-nowrap shadow-md hover:shadow-lg"
               >
                 📞 Call
               </a>
