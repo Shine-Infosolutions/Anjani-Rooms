@@ -10,8 +10,9 @@ export const hotels = [
     rooms: [
       {
         id: 101,
-        category: "Standard Room",
-        price: 799,
+        category: "Standard",
+        price: 1500,
+        priceWithBreakfast: 1800,
         amenities: ["AC", "WiFi", "TV"],
         images: [
           "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
@@ -25,8 +26,9 @@ export const hotels = [
       },
       {
         id: 102,
-        category: "Deluxe Room",
-        price: 1299,
+        category: "Deluxe",
+        price: 2000,
+        priceWithBreakfast: 2300,
         amenities: ["AC", "WiFi", "TV", "Geyser", "Balcony"],
         images: [
           "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
@@ -40,7 +42,8 @@ export const hotels = [
       {
         id: 103,
         category: "Suite",
-        price: 2199,
+        price: 6500,
+        priceWithBreakfast: 6800,
         amenities: ["AC", "WiFi", "TV", "Geyser", "River View", "Mini Bar"],
         images: [
           "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
@@ -57,8 +60,9 @@ export const hotels = [
     rooms: [
       {
         id: 201,
-        category: "Standard Room",
-        price: 699,
+        category: "Standard",
+        price: 1500,
+        priceWithBreakfast: 1800,
         amenities: ["AC", "WiFi", "TV"],
         images: [
           "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
@@ -71,12 +75,26 @@ export const hotels = [
       },
       {
         id: 202,
-        category: "Deluxe Room",
-        price: 1099,
+        category: "Deluxe",
+        price: 2000,
+        priceWithBreakfast: 2300,
         amenities: ["AC", "WiFi", "TV", "Geyser"],
         images: [
           "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
           "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 203,
+        category: "Super Deluxe",
+        price: 2800,
+        priceWithBreakfast: 3100,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Balcony"],
+        images: [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
         ],
         video: "https://www.w3schools.com/html/mov_bbb.mp4",
         bookedDates: [],
@@ -89,8 +107,9 @@ export const hotels = [
     rooms: [
       {
         id: 301,
-        category: "Standard Room",
-        price: 749,
+        category: "Standard",
+        price: 1500,
+        priceWithBreakfast: 1800,
         amenities: ["AC", "WiFi", "TV"],
         images: [
           "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
@@ -103,9 +122,134 @@ export const hotels = [
       },
       {
         id: 302,
-        category: "Deluxe Room",
-        price: 1199,
+        category: "Deluxe",
+        price: 2000,
+        priceWithBreakfast: 2300,
         amenities: ["AC", "WiFi", "TV", "Geyser", "Temple View"],
+        images: [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
+          "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 303,
+        category: "Executive",
+        price: 3500,
+        priceWithBreakfast: 3800,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Temple View", "Work Desk"],
+        images: [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+    ],
+  },
+  {
+    id: 4,
+    location: "Gorakhpur",
+    areas: ["Golghar", "Mohaddipur", "Betiahata", "University", "Railway Station", "Gorakhnath", "Medical Road", "Kudaghat", "Transport Nagar", "Nausad"],
+    rooms: [
+      {
+        id: 401,
+        category: "Standard",
+        price: 1500,
+        priceWithBreakfast: 1800,
+        amenities: ["AC", "WiFi", "TV"],
+        images: [
+          "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 402,
+        category: "Premium Standard",
+        price: 1800,
+        priceWithBreakfast: 2100,
+        amenities: ["AC", "WiFi", "TV", "Geyser"],
+        images: [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
+          "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 403,
+        category: "Deluxe",
+        price: 2000,
+        priceWithBreakfast: 2300,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Balcony"],
+        images: [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 404,
+        category: "Super Deluxe",
+        price: 2800,
+        priceWithBreakfast: 3100,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Balcony", "City View"],
+        images: [
+          "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 405,
+        category: "Executive",
+        price: 3500,
+        priceWithBreakfast: 3800,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Work Desk", "City View"],
+        images: [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
+          "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 406,
+        category: "Super Executive",
+        price: 4500,
+        priceWithBreakfast: 4800,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Work Desk", "Lounge Access"],
+        images: [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80",
+          "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/mov_bbb.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 407,
+        category: "Suite",
+        price: 6500,
+        priceWithBreakfast: 6800,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Mini Bar", "City View", "Lounge Access"],
+        images: [
+          "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80",
+          "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80",
+        ],
+        video: "https://www.w3schools.com/html/movie.mp4",
+        bookedDates: [],
+      },
+      {
+        id: 408,
+        category: "Corporate",
+        price: 3200,
+        priceWithBreakfast: 3500,
+        amenities: ["AC", "WiFi", "TV", "Geyser", "Work Desk", "Meeting Room Access"],
         images: [
           "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=600&q=80",
           "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80",
@@ -118,7 +262,7 @@ export const hotels = [
 ];
 
 export const locations = ["All", ...new Set(hotels.map((h) => h.location))];
-export const categories = ["All", ...new Set(hotels.flatMap((h) => h.rooms.map((r) => r.category)))];
+export const categories = ["All", "Suite", "Super Executive", "Executive", "Super Deluxe", "Deluxe", "Premium Standard", "Standard", "Corporate"];
 
 export function isRoomAvailable(room, checkIn, checkOut) {
   if (!checkIn || !checkOut) return true;

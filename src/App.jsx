@@ -50,8 +50,8 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🏨</span>
-            <span className="text-lg font-bold text-gray-900">
-              Anjani<span className="text-red-500">Rooms</span>
+            <span className="text-lg font-bold text-gray-900 tracking-wide">
+              ANJANI<span className="text-red-500">ROOMS</span>.COM
             </span>
           </div>
           <nav className="hidden md:flex gap-6">
@@ -81,8 +81,11 @@ export default function App() {
           <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">
             Find Your Perfect Room
           </h1>
-          <p className="text-sm md:text-base text-white/80 mb-7 drop-shadow">
+          <p className="text-sm md:text-base text-white/80 mb-1 drop-shadow">
             Comfortable stays across Varanasi, Prayagraj & Ayodhya
+          </p>
+          <p className="text-base md:text-lg font-semibold text-yellow-300 mb-7 drop-shadow italic">
+            &ldquo;Yaha Nahi To Kahi Nahi&rdquo;
           </p>
 
           {/* Search Bar */}
@@ -157,6 +160,23 @@ export default function App() {
               onClick={() => setHeroIndex(i)}
               className={`w-2 h-2 rounded-full transition-all ${i === heroIndex ? "bg-white scale-125" : "bg-white/40"}`}
             />
+          ))}
+        </div>
+      </div>
+
+      {/* ── Features Bar ── */}
+      <div className="bg-white border-b border-gray-100 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-center gap-6 md:gap-10">
+          {[
+            { icon: "🏨", text: "Top 50 Hotels" },
+            { icon: "✨", text: "Clean Rooms" },
+            { icon: "⚡", text: "Fast Booking" },
+            { icon: "🤝", text: "Best Hospitality" },
+          ].map(({ icon, text }) => (
+            <div key={text} className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+              <span className="text-lg">{icon}</span>
+              <span>{text}</span>
+            </div>
           ))}
         </div>
       </div>
@@ -264,8 +284,19 @@ export default function App() {
       </div>
 
       {/* ── Footer ── */}
-      <footer className="mt-auto bg-white border-t border-gray-200 text-center text-xs text-gray-400 py-5">
-        © 2025 Anjani Rooms · All rights reserved
+      <footer className="mt-auto bg-white border-t border-gray-200 py-6 text-center">
+        <p className="text-sm font-semibold text-gray-700 mb-3">Best Hospitality Only at AnjaniRooms.com</p>
+        <div className="text-xs text-gray-600 mb-3">
+          <p className="font-semibold text-gray-700 mb-1">Contact Us</p>
+          <p>📞 Call: 12 PM – 12 AM</p>
+          <p>💬 WhatsApp Available</p>
+          <p>✉️ Email: your@email.com</p>
+        </div>
+        <div className="text-xs text-gray-400 border-t border-gray-100 pt-3">
+          <p className="text-gray-500">📍 Golghar, Mohaddipur, Betiahata, University, Railway Station,</p>
+          <p className="text-gray-500">Gorakhnath, Medical Road, Kudaghat, Transport Nagar, Nausad — Gorakhpur</p>
+        </div>
+        <p className="text-xs text-gray-400 mt-3">© 2025 Anjani Rooms · All rights reserved</p>
       </footer>
     </div>
   );
