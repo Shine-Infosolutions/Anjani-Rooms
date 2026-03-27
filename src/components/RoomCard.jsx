@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
-import { CONTACT } from "../data/hotels";
 import MediaModal from "./MediaModal";
+
+const CONTACT = {
+  phone: "+919876543210",
+  whatsapp: "919277380327",
+};
 
 export default function RoomCard({ room, location, checkIn, checkOut, nights }) {
   const [mediaIndex, setMediaIndex] = useState(0);
@@ -26,6 +30,7 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
 
   const whatsappMsg = encodeURIComponent(
     `Hi, I want to book the *${room.category}* in ${location}.\n` +
+    `Room ID: ${room.roomId}\n` +
     (checkIn && checkOut
       ? `📅 Check-in: ${checkIn}\n📅 Check-out: ${checkOut}\n🌙 Nights: ${nights}\n💰 Total: ₹${totalPrice}`
       : `Price: ₹${room.price}/night`)
@@ -149,7 +154,7 @@ export default function RoomCard({ room, location, checkIn, checkOut, nights }) 
                 📞 Call
               </a>
               <a
-                href={`https://wa.me/${CONTACT.whatsapp.replace("+", "")}?text=${whatsappMsg}`}
+                href={`https://wa.me/${CONTACT.whatsapp}?text=${whatsappMsg}`}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors whitespace-nowrap"
